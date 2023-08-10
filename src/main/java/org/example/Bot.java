@@ -1,6 +1,7 @@
 package org.example;
 
 
+import org.example.enums.Zodiac;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -10,7 +11,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Bot extends TelegramLongPollingBot {
@@ -113,33 +116,35 @@ public class Bot extends TelegramLongPollingBot {
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
         replyKeyboardMarkup.setResizeKeyboard(true);// подгоняем размер
         replyKeyboardMarkup.setOneTimeKeyboard(true);// скрываем после использования
-
-        // Создаем список с рядами кнопок
-        ArrayList<KeyboardRow> keyboardRows = new ArrayList<>();
-        //Создаем один ряд кнопок и добавляем его в список
-        KeyboardRow keyboardRow = new KeyboardRow();
-        keyboardRows.add(keyboardRow);
-        // Добавляем одну кнопку с текстом
-        keyboardRow.add(new KeyboardButton("Овен"));
-        keyboardRow.add(new KeyboardButton("Телец"));
-        keyboardRow.add(new KeyboardButton("Близнец"));
-        keyboardRow.add(new KeyboardButton("Рак"));
-        keyboardRow = new KeyboardRow();
-        keyboardRows.add(keyboardRow);
-        keyboardRow.add(new KeyboardButton("Лев"));
-        keyboardRow.add(new KeyboardButton("Дева"));
-        keyboardRow.add(new KeyboardButton("Весы"));
-        keyboardRow.add(new KeyboardButton("Скорпион"));
-        keyboardRow = new KeyboardRow();
-        keyboardRows.add(keyboardRow);
-        keyboardRow.add(new KeyboardButton("Стрелец"));
-        keyboardRow.add(new KeyboardButton("Козерог"));
-        keyboardRow.add(new KeyboardButton("Водолей"));
-        keyboardRow.add(new KeyboardButton("Рыбы"));
-        // добавляем лист с одним рядом кнопок в главный объект
-        replyKeyboardMarkup.setKeyboard(keyboardRows);
+        replyKeyboardMarkup.setKeyboard(getZodiacKeyBoard());
         return replyKeyboardMarkup;
     }
+    private List<KeyboardRow> getZodiacKeyBoard (){
+        List<KeyboardRow> result = new ArrayList<>();
+        List<KeyboardButton> buttons = new ArrayList<>();
+        for (Zodiac zodiac: Zodiac.values()){
+            buttons.add(newButton(zodiac));
+        }
+        int fromIndex = 0;
+        int toIndex = 4;
+        while (toIndex<=buttons.size()){
+            result.add(getKeyBoardRow(new ArrayList<>(buttons.subList(fromIndex,toIndex))));
+            fromIndex+=4;
+            toIndex+=4;
+        }
+
+        return result;
+    }
+    public KeyboardButton newButton(Zodiac zodiac){
+        return new KeyboardButton(zodiac.getName());
+    }
+private KeyboardRow getKeyBoardRow (List<KeyboardButton> buttons){
+        KeyboardRow row = new KeyboardRow();
+        for (KeyboardButton button:buttons){
+            row.add(button);
+        }
+        return row;
+}
 }
 
 
