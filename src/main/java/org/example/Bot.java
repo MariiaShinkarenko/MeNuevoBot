@@ -1,7 +1,10 @@
 package org.example;
 
 
+import org.example.enums.BotCommands;
+import org.example.enums.Commands;
 import org.example.enums.Zodiac;
+import org.example.enums.ZodiacSt;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -11,7 +14,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class Bot extends TelegramLongPollingBot {
     final private String BOT_TOKEN = "6358801713:AAHjLKYc6Hbodkkz3nV_jxiE8SU3IcdNGsM";
     final private String BOT_NAME = "MeNuevoBot";
     Storage storage;
+    private String textMsg;
+    private ZodiacSt zodiacS;
 
     Bot() {
         storage = new Storage();
@@ -60,51 +64,40 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
     public String parseMessage(String textMsg) {
         String response;
+
         //Сравниваем текст пользователя с нашими командами, на основе это формируем ответ
-        if (textMsg.equals("/start")) {
+        if (textMsg.equals(Commands.START.getCommandType())) {
             response = "Приветствую. Какой прогноз Вас интересует? ";
-        }
-
-      else if ( textMsg.equals("Овен")) {
-                response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/aries.html");
-            }
-        else if ( textMsg.equals("Телец")) {
+        } else if (textMsg.equals(Commands.INFO.getCommandType())) {
+            response = "Данный гороскоп разработан в учебных целях";
+        } else if (textMsg.equals(Zodiac.ARIES.getName())) {
+            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/aries.html");
+        } else if (textMsg.equals(Zodiac.TAURUS.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/taurus.html");
-        }
-        else if ( textMsg.equals("Близнец")) {
+        } else if (textMsg.equals(Zodiac.GEMINI.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/gemini.html");
-        }
-        else if ( textMsg.equals("Рак")) {
+        } else if (textMsg.equals(Zodiac.CANCER.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/cancer.html");
-        }
-        else if ( textMsg.equals("Лев")) {
+        } else if (textMsg.equals(Zodiac.LOE.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/leo.html");
-        }
-       else if ( textMsg.equals("Дева")) {
+        } else if (textMsg.equals(Zodiac.VIRGO.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/virgo.html");
-        }
-        else if ( textMsg.equals("Весы")) {
+        } else if (textMsg.equals(Zodiac.LIBRA.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/libra.html");
-        }
-        else if ( textMsg.equals("Скорпион")) {
+        } else if (textMsg.equals(Zodiac.SCORPIO.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/scorpio.html");
-        }
-        else if ( textMsg.equals("Стрелец")) {
+        } else if (textMsg.equals(Zodiac.SAGITTARIUS.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/sagittarius.html");
-        }
-        else if ( textMsg.equals("Козерог")) {
+        } else if (textMsg.equals(Zodiac.CAPRICORN.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/capricorn.html");
-        }
-        else if ( textMsg.equals("Водолей")) {
+        } else if (textMsg.equals(Zodiac.AQUARIUS.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/aquarius.html");
-        }
-        else if ( textMsg.equals("Рыбы")) {
+        } else if (textMsg.equals(Zodiac.PISCES.getName())) {
             response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/pisces.html");
-        }
-
-        else {
+        } else {
             response = "Попробуй еще раз";
         }
         return response;
@@ -117,35 +110,47 @@ public class Bot extends TelegramLongPollingBot {
         replyKeyboardMarkup.setResizeKeyboard(true);// подгоняем размер
         replyKeyboardMarkup.setOneTimeKeyboard(true);// скрываем после использования
         replyKeyboardMarkup.setKeyboard(getZodiacKeyBoard());
+
         return replyKeyboardMarkup;
     }
-    private List<KeyboardRow> getZodiacKeyBoard (){
-        List<KeyboardRow> result = new ArrayList<>();
+
+    private List<KeyboardRow> getZodiacKeyBoard() {
         List<KeyboardButton> buttons = new ArrayList<>();
-        for (Zodiac zodiac: Zodiac.values()){
+        for (Zodiac zodiac : Zodiac.values()) {
             buttons.add(newButton(zodiac));
         }
         int fromIndex = 0;
         int toIndex = 4;
-        while (toIndex<=buttons.size()){
-            result.add(getKeyBoardRow(new ArrayList<>(buttons.subList(fromIndex,toIndex))));
-            fromIndex+=4;
-            toIndex+=4;
+        List<KeyboardRow> result = new ArrayList<>();
+        while (toIndex <= buttons.size()) {
+            result.add(getKeyBoardRow(new ArrayList<>(buttons.subList(fromIndex, toIndex))));
+            fromIndex += 4;
+            toIndex += 4;
         }
 
         return result;
     }
-    public KeyboardButton newButton(Zodiac zodiac){
+
+
+    public KeyboardButton newButton(Zodiac zodiac) {
         return new KeyboardButton(zodiac.getName());
     }
-private KeyboardRow getKeyBoardRow (List<KeyboardButton> buttons){
+
+    private KeyboardRow getKeyBoardRow(List<KeyboardButton> buttons) {
         KeyboardRow row = new KeyboardRow();
-        for (KeyboardButton button:buttons){
+        for (KeyboardButton button : buttons) {
             row.add(button);
         }
         return row;
+    }
+
+    public KeyboardButton commandsButton(Commands commands) {
+        return new KeyboardButton(commands.getCommandType());
+    }
+
+
 }
-}
+
 
 
 

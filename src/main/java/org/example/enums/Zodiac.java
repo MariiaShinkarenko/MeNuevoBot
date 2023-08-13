@@ -1,25 +1,27 @@
 package org.example.enums;
 
 public enum Zodiac {
-    ARIES ("Овен"),
-    TAURUS ("Телец"),
+    ARIES("Овен"),
+    TAURUS("Телец"),
     GEMINI("Близнец"),
-    CANCER ("Рак"),
+    CANCER("Рак"),
     LOE("Лев"),
     VIRGO("Дева"),
     LIBRA("Весы"),
     SCORPIO("Скорпион"),
     SAGITTARIUS("Стрелец"),
     CAPRICORN("Козерог"),
-    AQUARIUS ("Водолей"),
+    AQUARIUS("Водолей"),
     PISCES("Рыбы");
 
-   private String name;
+    private String name;
+
     Zodiac(String name) {
-       this.name = name;
+        this.name = name;
     }
-    public String getName (){
+
+    public String getName() {
         return name;
     }
 
-}
+    }

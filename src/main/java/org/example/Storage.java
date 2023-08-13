@@ -10,8 +10,7 @@ import java.io.IOException;
 
 
 public class Storage {
-    String parser(String url)
-    {
+    String parser (String url) {
 
         Document doc = null;
         try {
@@ -24,12 +23,13 @@ public class Storage {
         // Получаем группу объектов, обращаясь методом из Jsoup к определенному блоку
         Elements elQuote = doc.getElementsByClass(className);
         // Достаем текст из каждого объекта поочереди и добавляем в наше хранилище
-       Element element= elQuote.get(0);
-      elQuote = element.getElementsByClass("border border-light rounded shadow") ;
-        element= elQuote.get(0);
+        Element element = elQuote.get(0);
+        elQuote = element.getElementsByClass("border border-light rounded shadow");
+        element = elQuote.get(0);
         elQuote = element.getElementsByClass("p-3");
-        element= elQuote.get(0);
-       return element.text();
+        element = elQuote.get(0);
+        return element.text();
 
     }
+
 }
