@@ -1,14 +1,15 @@
 package org.example;
 
 
-import org.example.enums.BotCommands;
 import org.example.enums.Commands;
 import org.example.enums.Zodiac;
-import org.example.enums.ZodiacSt;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
+import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
@@ -22,8 +23,7 @@ public class Bot extends TelegramLongPollingBot {
     final private String BOT_TOKEN = "6358801713:AAHjLKYc6Hbodkkz3nV_jxiE8SU3IcdNGsM";
     final private String BOT_NAME = "MeNuevoBot";
     Storage storage;
-    private String textMsg;
-    private ZodiacSt zodiacS;
+
 
     Bot() {
         storage = new Storage();
@@ -67,6 +67,15 @@ public class Bot extends TelegramLongPollingBot {
 
     public String parseMessage(String textMsg) {
         String response;
+        List<BotCommand> listofCommands = new ArrayList<>();
+        listofCommands.add(new BotCommand("/start", "запусти бота"));
+        listofCommands.add(new BotCommand("/info", "бытие бота"));
+
+        try {
+            this.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(), null));
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
 
         //Сравниваем текст пользователя с нашими командами, на основе это формируем ответ
         if (textMsg.equals(Commands.START.getCommandType())) {
@@ -143,12 +152,6 @@ public class Bot extends TelegramLongPollingBot {
         }
         return row;
     }
-
-    public KeyboardButton commandsButton(Commands commands) {
-        return new KeyboardButton(commands.getCommandType());
-    }
-
-
 }
 
 
