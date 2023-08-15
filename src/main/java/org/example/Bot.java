@@ -1,6 +1,7 @@
 package org.example;
 
 
+import org.example.configs.LinksConfig;
 import org.example.enums.Commands;
 import org.example.enums.Zodiac;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -16,12 +17,15 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class Bot extends TelegramLongPollingBot {
     final private String BOT_TOKEN = "6358801713:AAHjLKYc6Hbodkkz3nV_jxiE8SU3IcdNGsM";
     final private String BOT_NAME = "MeNuevoBot";
+    private final LinksConfig config = new LinksConfig();
     Storage storage;
 
 
@@ -82,37 +86,21 @@ public class Bot extends TelegramLongPollingBot {
             response = "Приветствую. Какой прогноз Вас интересует? ";
         } else if (textMsg.equals(Commands.INFO.getCommandType())) {
             response = "Данный гороскоп разработан в учебных целях";
-        } else if (textMsg.equals(Zodiac.ARIES.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/aries.html");
-        } else if (textMsg.equals(Zodiac.TAURUS.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/taurus.html");
-        } else if (textMsg.equals(Zodiac.GEMINI.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/gemini.html");
-        } else if (textMsg.equals(Zodiac.CANCER.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/cancer.html");
-        } else if (textMsg.equals(Zodiac.LOE.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/leo.html");
-        } else if (textMsg.equals(Zodiac.VIRGO.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/virgo.html");
-        } else if (textMsg.equals(Zodiac.LIBRA.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/libra.html");
-        } else if (textMsg.equals(Zodiac.SCORPIO.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/scorpio.html");
-        } else if (textMsg.equals(Zodiac.SAGITTARIUS.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/sagittarius.html");
-        } else if (textMsg.equals(Zodiac.CAPRICORN.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/capricorn.html");
-        } else if (textMsg.equals(Zodiac.AQUARIUS.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/aquarius.html");
-        } else if (textMsg.equals(Zodiac.PISCES.getName())) {
-            response = storage.parser("https://astroscope.ru/horoskop/ejednevniy_goroskop/pisces.html");
+        } else if (isZodiac(textMsg)){
+            response = storage.parser(config.getLinkByZodiac(Zodiac.nameToZodiac(textMsg.trim())));
         } else {
             response = "Попробуй еще раз";
         }
         return response;
     }
 
-
+private boolean isZodiac (String textMsg){
+    Set<String> names = new HashSet<>();
+    for (Zodiac zodiac:Zodiac.values()) {
+        names.add(zodiac.getName());
+    }
+    return names.contains(textMsg.trim());
+}
     public ReplyKeyboardMarkup replyKeyboardMarkup() {
         //Создаем объект будущей клавиатуры и выставляем нужные настройки
         ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();

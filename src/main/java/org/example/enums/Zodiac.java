@@ -23,5 +23,12 @@ public enum Zodiac {
     public String getName() {
         return name;
     }
-
+    public static Zodiac nameToZodiac(String name){
+        for (Zodiac zodiac:values()){
+            if (zodiac.getName().equals(name)){
+                return zodiac;
+            }
+        }
+        return null;
+    }
     }

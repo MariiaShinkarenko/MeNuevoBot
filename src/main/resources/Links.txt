@@ -1,0 +1,12 @@
+ARIES = https://astroscope.ru/horoskop/ejednevniy_goroskop/aries.html
+TAURUS = https://astroscope.ru/horoskop/ejednevniy_goroskop/taurus.html
+GEMINI = https://astroscope.ru/horoskop/ejednevniy_goroskop/gemini.html
+CANCER = https://astroscope.ru/horoskop/ejednevniy_goroskop/cancer.html
+LOE = https://astroscope.ru/horoskop/ejednevniy_goroskop/leo.html
+VIRGO = https://astroscope.ru/horoskop/ejednevniy_goroskop/virgo.html
+LIBRA = https://astroscope.ru/horoskop/ejednevniy_goroskop/libra.html
+SCORPIO = https://astroscope.ru/horoskop/ejednevniy_goroskop/scorpio.html
+SAGITTARIUS = https://astroscope.ru/horoskop/ejednevniy_goroskop/sagittarius.html
+CAPRICORN = https://astroscope.ru/horoskop/ejednevniy_goroskop/capricorn.html
+AQUARIUS = https://astroscope.ru/horoskop/ejednevniy_goroskop/aquarius.html
+PISCES = https://astroscope.ru/horoskop/ejednevniy_goroskop/pisces.html
