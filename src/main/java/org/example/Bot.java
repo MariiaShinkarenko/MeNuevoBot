@@ -1,7 +1,6 @@
 package org.example;
-
-
 import org.example.configs.LinksConfig;
+import org.example.configs.SettingsConfig;
 import org.example.enums.Commands;
 import org.example.enums.Zodiac;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -23,24 +22,23 @@ import java.util.Set;
 
 
 public class Bot extends TelegramLongPollingBot {
-    final private String BOT_TOKEN = "6358801713:AAHjLKYc6Hbodkkz3nV_jxiE8SU3IcdNGsM";
-    final private String BOT_NAME = "MeNuevoBot";
+   private final SettingsConfig Setconfig = new SettingsConfig();
     private final LinksConfig config = new LinksConfig();
     Storage storage;
-
 
     Bot() {
         storage = new Storage();
     }
 
+
     @Override
     public String getBotUsername() {
-        return BOT_NAME;
+        return Setconfig.BOT_NAME;
     }
 
     @Override
     public String getBotToken() {
-        return BOT_TOKEN;
+        return Setconfig.BOT_TOKEN;
     }
 
     @Override
