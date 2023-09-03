@@ -1,8 +1,5 @@
 package org.example.configs;
 
-import lombok.extern.log4j.Log4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,21 +8,15 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-@Component
 public class SettingsConfig {
 
-    @Value("${bot.name}")
-     public String BOT_NAME;
-
-    @Value("${bot.token}")
-    public String BOT_TOKEN;
 
     private static final String SETCONFIG_NAME = "Settings.txt";
     private final Map<String, String> Setconfig;
 
     // Constructor
     public SettingsConfig() {
+
         Setconfig = readConfig();
     }
 
@@ -54,9 +45,15 @@ public class SettingsConfig {
         for (String row : configRows) {
             String[] keyAndValue = row.split("=");
             if (keyAndValue.length >= 2) {
-                setConf.put(keyAndValue[0], keyAndValue[1].trim());
+                setConf.put(keyAndValue[0].trim(), keyAndValue[1].trim());
             }
         }
         return setConf;
+
+    }
+    public String get (String key){
+        return Setconfig.get(key);
+
     }
 }
+

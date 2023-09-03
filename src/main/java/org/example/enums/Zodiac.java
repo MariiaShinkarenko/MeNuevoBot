@@ -1,5 +1,8 @@
 package org.example.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Zodiac {
     ARIES("Овен"),
     TAURUS("Телец"),
@@ -30,5 +33,12 @@ public enum Zodiac {
             }
         }
         return null;
+    }
+    public static List<String> getNamesZodiacs (){
+        List<String> namesOfZodiacs = new ArrayList<>();
+        for (Zodiac zodiac:values()){
+            namesOfZodiacs.add(zodiac.name);
+        }
+        return namesOfZodiacs;
     }
     }

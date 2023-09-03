@@ -1,4 +1,4 @@
-package org.example;
+package org.example.msg;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -7,11 +7,8 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-
-
-public class Storage {
-    String parser (String url) {
-
+public class UrlHandlerTomorrow {
+    public String getHoroscopeFromUrl(String url){
         Document doc = null;
         try {
             //Получаем документ нужной нам страницы
@@ -31,5 +28,5 @@ public class Storage {
         return element.text();
 
     }
-
 }
+

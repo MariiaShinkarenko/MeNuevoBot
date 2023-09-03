@@ -2,8 +2,8 @@ package org.example.enums;
 
 public enum Commands {
 
-    START ("/start"),
-    INFO ("/info");
+    START("/start"),
+    INFO("/info");
 
 
     private final String commandType;
@@ -17,5 +17,13 @@ public enum Commands {
         return commandType;
     }
 
+    public static Commands nameCommand(String name) {
+        for (Commands commands : values()) {
+            if (commands.commandType.equals(name)) {
+                return commands;
+            }
+        }
+        return null;
+    }
 
 }
