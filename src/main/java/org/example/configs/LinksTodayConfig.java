@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class LinksConfig {
-    private static final String CONFIG_NAME = "Links.txt";
+public class LinksTodayConfig {
+    private static final String CONFIG_NAME = "LinksToday.txt";
     private final Map<Zodiac, String> config;
     // конструктор без параметров
-    public LinksConfig (){
+    public LinksTodayConfig(){
         config = readConfig();
     }
     private Map<Zodiac, String> readConfig (){

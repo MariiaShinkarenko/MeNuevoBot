@@ -1,0 +1,12 @@
+ARIES = https://astroscope.ru/horoskop/ejednevniy_goroskop/aries_zavtra.html
+TAURUS = https://astroscope.ru/horoskop/ejednevniy_goroskop/taurus_zavtra.html
+GEMINI = https://astroscope.ru/horoskop/ejednevniy_goroskop/gemini_zavtra.html
+CANCER = https://astroscope.ru/horoskop/ejednevniy_goroskop/cancer_zavtra.html
+LOE = https://astroscope.ru/horoskop/ejednevniy_goroskop/leo_zavtra.html
+VIRGO = https://astroscope.ru/horoskop/ejednevniy_goroskop/virgo_zavtra.html
+LIBRA = https://astroscope.ru/horoskop/ejednevniy_goroskop/libra_zavtra.html
+SCORPIO = https://astroscope.ru/horoskop/ejednevniy_goroskop/scorpio_zavtra.html
+SAGITTARIUS = https://astroscope.ru/horoskop/ejednevniy_goroskop/sagittarius_zavtra.html
+CAPRICORN = https://astroscope.ru/horoskop/ejednevniy_goroskop/capricorn_zavtra.html
+AQUARIUS = https://astroscope.ru/horoskop/ejednevniy_goroskop/aquarius_zavtra.html
+PISCES = https://astroscope.ru/horoskop/ejednevniy_goroskop/pisces_zavtra.html
