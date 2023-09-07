@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-public class UrlHandlerTomorrow {
+public class UrlHandler {
     public String getHoroscopeFromUrl(String url){
         Document doc = null;
         try {
@@ -29,4 +29,3 @@ public class UrlHandlerTomorrow {
 
     }
 }
-
