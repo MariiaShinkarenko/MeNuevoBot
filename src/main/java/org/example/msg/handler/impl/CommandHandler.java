@@ -1,25 +1,16 @@
 package org.example.msg.handler.impl;
 
-import org.example.cache.EventCache;
-import org.example.configs.CharacteristicsConfig;
-import org.example.entity.UserEvent;
 import org.example.enums.Commands;
 import org.example.enums.Days;
 import org.example.enums.Zodiac;
 import org.example.msg.handler.MessageHandler;
 import org.example.msg.keyboard.KeyBoardBuilder;
-import org.example.util.MessageUtil;
 import org.example.util.UpdateUtil;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
-import java.util.Collections;
-
 public class CommandHandler implements MessageHandler {
-    private EventCache eventCache = EventCache.getInstance();
-    private CharacteristicsConfig characteristicsConfig = new CharacteristicsConfig();
-
 
     @Override
     public SendMessage handle(Update update) {
@@ -46,26 +37,4 @@ public class CommandHandler implements MessageHandler {
 
 
     }
-    private String getUrlDependingOnDay (String key){
-        Commands commands = getChoice();
-        if (commands == Commands.HOROSCOPE){
-            return characteristicsConfig.get(String.valueOf(key));
-        }
-        if (commands == Commands.CHARACTERISTIC){
-            return characteristicsConfig.get(String.valueOf(key));
-        }
-        throw new RuntimeException("Неизвестный день");
-    }
-    private Commands getChoice (){
-        UserEvent lastEvent = eventCache.getLastEvent();
-        if (lastEvent == null){
-            return Commands.valueOf(Commands.START.getCommandType());
-        }
-        String text= lastEvent.getText();
-        if (!MessageUtil.isDay(text)){
-            throw new RuntimeException("Text is not day");
-        }
-        return Commands.nameCommand(text);
-    }
 }
-

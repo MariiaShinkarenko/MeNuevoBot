@@ -35,13 +35,5 @@ public final class MessageUtil {
         return false;
     }
 
-    public static boolean isCharacteristic(String message) {
-        for (Zodiac value : Zodiac.values()) {
-            if (value.getName().equals(message)) {
-                return true;
-            }
-        }
-            return false;
-
-    }
 }
+
