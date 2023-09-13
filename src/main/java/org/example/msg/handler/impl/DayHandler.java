@@ -3,7 +3,6 @@ package org.example.msg.handler.impl;
 import org.example.cache.EventCache;
 import org.example.entity.UserEvent;
 import org.example.enums.Days;
-
 import org.example.enums.Zodiac;
 import org.example.msg.UrlHandler;
 import org.example.msg.handler.MessageHandler;

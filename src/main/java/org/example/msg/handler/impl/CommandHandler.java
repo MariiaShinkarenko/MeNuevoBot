@@ -2,7 +2,6 @@ package org.example.msg.handler.impl;
 
 import org.example.enums.Commands;
 import org.example.enums.Days;
-import org.example.enums.Zodiac;
 import org.example.msg.handler.MessageHandler;
 import org.example.msg.keyboard.KeyBoardBuilder;
 import org.example.util.UpdateUtil;

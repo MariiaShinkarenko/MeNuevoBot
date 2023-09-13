@@ -25,11 +25,11 @@ public class ZodiacHandler implements MessageHandler {
 
     @Override
     public SendMessage handle(Update update) {
-     String textMessage  = UpdateUtil.getTextMessage(update);
+        String textMessage = UpdateUtil.getTextMessage(update);
         Zodiac zodiac = Zodiac.nameToZodiac(textMessage);
-      String urlZodiac= getUrlDependingOnDay(zodiac);
-      String answer= urlHandler.getHoroscopeFromUrl(urlZodiac);
-        ReplyKeyboard replyKeyboard =KeyBoardBuilder.builder()
+        String urlZodiac = getUrlDependingOnDay(zodiac);
+        String answer = urlHandler.getHoroscopeFromUrl(urlZodiac);
+        ReplyKeyboard replyKeyboard = KeyBoardBuilder.builder()
                 .setButtonsInRaw(4)
                 .setNamesButtons(Zodiac.getNamesZodiacs())
                 .build();
@@ -40,25 +40,27 @@ public class ZodiacHandler implements MessageHandler {
                 .build();
 
     }
-    private String getUrlDependingOnDay (Zodiac zodiac){
+
+    private String getUrlDependingOnDay(Zodiac zodiac) {
         Days day = getDay();
-        if (day == Days.TODAY){
+        if (day == Days.TODAY) {
             return linksTodayConfig.getLinkByZodiac(zodiac);
         }
-        if (day == Days.TOMORROW){
+        if (day == Days.TOMORROW) {
             return linksTomorrowConfig.getLinkTomorrowByZodiac(zodiac);
         }
         throw new RuntimeException("Неизвестный день");
     }
-    private Days getDay (){
-      UserEvent lastEvent = eventCache.getLastEvent();
-      if (lastEvent == null){
-          return Days.TODAY;
-      }
-      String text= lastEvent.getText();
-      if (!MessageUtil.isDay(text)){
-          throw new RuntimeException("Text is not day");
-      }
-      return Days.nameToDay(text);
+
+    private Days getDay() {
+        UserEvent lastEvent = eventCache.getLastEvent();
+        if (lastEvent == null) {
+            return Days.TODAY;
+        }
+        String text = lastEvent.getText();
+        if (!MessageUtil.isDay(text)) {
+            throw new RuntimeException("Text is not day");
+        }
+        return Days.nameToDay(text);
     }
 }
