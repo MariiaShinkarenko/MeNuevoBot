@@ -1,9 +1,12 @@
 package org.example.enums;
 
+
 public enum Commands {
 
-    START("/start"),
-    INFO("/info");
+    CHARACTERISTIC("Характеристика"),
+    HOROSCOPE("Гороскоп"),
+    INFO("/info"),
+    START("/start");
 
 
     private final String commandType;

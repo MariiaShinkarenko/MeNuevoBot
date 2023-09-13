@@ -1,6 +1,5 @@
 package org.example.msg;
 
-import org.example.enums.Zodiac;
 import org.example.msg.handler.MessageHandler;
 import org.example.msg.handler.impl.CommandHandler;
 import org.example.msg.handler.impl.DayHandler;
