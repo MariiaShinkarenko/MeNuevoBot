@@ -1,11 +1,14 @@
 package org.example.msg.handler.impl;
 
 import org.example.cache.EventCache;
+import org.example.configs.CharacteristicConfig;
 import org.example.configs.LinksTodayConfig;
 import org.example.configs.LinksTomorrowConfig;
 import org.example.entity.UserEvent;
-import org.example.enums.Days;
+import org.example.enums.Day;
+import org.example.enums.Menu;
 import org.example.enums.Zodiac;
+import org.example.msg.CharacteristicUrlHandler;
 import org.example.msg.UrlHandler;
 import org.example.msg.handler.MessageHandler;
 import org.example.msg.keyboard.KeyBoardBuilder;
@@ -17,6 +20,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 public class ZodiacHandler implements MessageHandler {
     private UrlHandler urlHandler = new UrlHandler();
+    private CharacteristicUrlHandler characteristicUrlHandler = new CharacteristicUrlHandler();
+    private CharacteristicConfig characteristicConfig = new CharacteristicConfig();
+
 
     private LinksTodayConfig linksTodayConfig = new LinksTodayConfig();
     private LinksTomorrowConfig linksTomorrowConfig = new LinksTomorrowConfig();
@@ -27,11 +33,10 @@ public class ZodiacHandler implements MessageHandler {
     public SendMessage handle(Update update) {
         String textMessage = UpdateUtil.getTextMessage(update);
         Zodiac zodiac = Zodiac.nameToZodiac(textMessage);
-        String urlZodiac = getUrlDependingOnDay(zodiac);
-        String answer = urlHandler.getHoroscopeFromUrl(urlZodiac);
+        String answer = getAnswer(zodiac, eventCache.getLastEvent());
         ReplyKeyboard replyKeyboard = KeyBoardBuilder.builder()
-                .setButtonsInRaw(4)
-                .setNamesButtons(Zodiac.getNamesZodiacs())
+                .setButtonsInRaw(2)
+                .setNamesButtons(Menu.getNamesMenu())
                 .build();
         return SendMessage.builder()
                 .chatId(UpdateUtil.getChatId(update))
@@ -41,26 +46,27 @@ public class ZodiacHandler implements MessageHandler {
 
     }
 
-    private String getUrlDependingOnDay(Zodiac zodiac) {
-        Days day = getDay();
-        if (day == Days.TODAY) {
+    private String getAnswer(Zodiac zodiac, UserEvent userEvent) {
+        String text = userEvent.getText();
+        if (MessageUtil.isDay(text)) {
+            String urlZodiac = getUrlDependingOnDay(zodiac, Day.nameToDay(text));
+            return urlHandler.getHoroscopeFromUrl(urlZodiac);
+        } else if (MessageUtil.isMenu(text)) {
+            String urlCharacteristic = characteristicConfig.getLinkByCharacteristic(zodiac);
+            return urlHandler.getCharacteristicFromUrl(urlCharacteristic);
+
+        }
+        throw new RuntimeException("Сюда не должно было попасть");
+    }
+
+    private String getUrlDependingOnDay(Zodiac zodiac, Day day) {
+        if (day == Day.TODAY) {
             return linksTodayConfig.getLinkByZodiac(zodiac);
         }
-        if (day == Days.TOMORROW) {
+        if (day == Day.TOMORROW) {
             return linksTomorrowConfig.getLinkTomorrowByZodiac(zodiac);
         }
         throw new RuntimeException("Неизвестный день");
     }
 
-    private Days getDay() {
-        UserEvent lastEvent = eventCache.getLastEvent();
-        if (lastEvent == null) {
-            return Days.TODAY;
-        }
-        String text = lastEvent.getText();
-        if (!MessageUtil.isDay(text)) {
-            throw new RuntimeException("Text is not day");
-        }
-        return Days.nameToDay(text);
-    }
 }

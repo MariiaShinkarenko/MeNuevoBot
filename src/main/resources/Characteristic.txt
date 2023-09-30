@@ -1,0 +1,12 @@
+ARIES = https://astroscope.ru/horoskop/znaki_zodiaka/aries.html
+TAURUS = https://astroscope.ru/horoskop/znaki_zodiaka/taurus.html
+GEMINI = https://astroscope.ru/horoskop/znaki_zodiaka/gemini.html
+CANCER = https://astroscope.ru/horoskop/znaki_zodiaka/cancer.html
+LOE = https://astroscope.ru/horoskop/znaki_zodiaka/leo.html
+VIRGO = https://astroscope.ru/horoskop/znaki_zodiaka/virgo.html
+LIBRA = https://astroscope.ru/horoskop/znaki_zodiaka/libra.html
+SCORPIO = https://astroscope.ru/horoskop/znaki_zodiaka/scorpio.html
+SAGITTARIUS = https://astroscope.ru/horoskop/znaki_zodiaka/sagittarius.html
+CAPRICORN = https://astroscope.ru/horoskop/znaki_zodiaka/capricorn.html
+AQUARIUS = https://astroscope.ru/horoskop/znaki_zodiaka/aquarius.html
+PISCES = https://astroscope.ru/horoskop/znaki_zodiaka/pisces.html

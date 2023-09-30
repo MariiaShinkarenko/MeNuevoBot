@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import org.example.entity.UserEvent;
 
 import java.util.ArrayDeque;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Queue;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)

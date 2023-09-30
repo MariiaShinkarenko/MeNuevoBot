@@ -8,14 +8,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 public class UrlHandler {
-    public String getHoroscopeFromUrl(String url){
-        Document doc = null;
-        try {
-            //Получаем документ нужной нам страницы
-            doc = Jsoup.connect(url).get();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public String getHoroscopeFromUrl(String url) {
+        Document doc = getDocument(url);
         String className = "contain mt-3";
         // Получаем группу объектов, обращаясь методом из Jsoup к определенному блоку
         Elements elQuote = doc.getElementsByClass(className);
@@ -27,5 +21,27 @@ public class UrlHandler {
         element = elQuote.get(0);
         return element.text();
 
+    }
+
+    public String getCharacteristicFromUrl(String url) {
+        return getDocument(url).getElementsByClass("container").stream()
+                .filter(element -> !element.getElementsByTag("h4").isEmpty())
+                .findFirst()
+                .map(element -> element.getElementsByClass("p-3").stream()
+                        .map(subElement -> subElement.text())
+                        .findFirst()
+                        .orElse("элемент не найден")
+                )
+                .orElse("элемент не найден")
+                ;
+    }
+
+    private Document getDocument(String url) {
+        try {
+            return Jsoup.connect(url).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

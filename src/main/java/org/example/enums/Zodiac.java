@@ -26,19 +26,21 @@ public enum Zodiac {
     public String getName() {
         return name;
     }
-    public static Zodiac nameToZodiac(String name){
-        for (Zodiac zodiac:values()){
-            if (zodiac.getName().equals(name)){
+
+    public static Zodiac nameToZodiac(String name) {
+        for (Zodiac zodiac : values()) {
+            if (zodiac.getName().equals(name)) {
                 return zodiac;
             }
         }
         return null;
     }
-    public static List<String> getNamesZodiacs (){
+
+    public static List<String> getNamesZodiacs() {
         List<String> namesOfZodiacs = new ArrayList<>();
-        for (Zodiac zodiac:values()){
+        for (Zodiac zodiac : values()) {
             namesOfZodiacs.add(zodiac.name);
         }
         return namesOfZodiacs;
     }
-    }
+}

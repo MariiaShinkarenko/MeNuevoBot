@@ -2,7 +2,7 @@ package org.example.msg.handler.impl;
 
 import org.example.cache.EventCache;
 import org.example.entity.UserEvent;
-import org.example.enums.Days;
+import org.example.enums.Day;
 import org.example.enums.Zodiac;
 import org.example.msg.UrlHandler;
 import org.example.msg.handler.MessageHandler;
@@ -41,7 +41,7 @@ public class DayHandler implements MessageHandler {
 
     private String getAnswer(String text) {
         Zodiac.getNamesZodiacs();
-        switch (Days.nameToDay(text)) {
+        switch (Day.nameToDay(text)) {
             case TODAY:
             case TOMORROW:
                 return "Выберите свой знак зодиака";

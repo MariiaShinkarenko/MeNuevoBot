@@ -13,8 +13,7 @@ import java.util.List;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             Bot Bot = new Bot();
@@ -25,13 +24,14 @@ public class Main {
 
         }
     }
-    private static void menu (Bot bot){
+
+    private static void menu(Bot bot) {
         List<BotCommand> listofCommands = new ArrayList<>();
         listofCommands.add(new BotCommand("/start", "запусти бота"));
         listofCommands.add(new BotCommand("/info", "бытие бота"));
 
         try {
-           bot.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(), null));
+            bot.execute(new SetMyCommands(listofCommands, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
